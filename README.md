@@ -100,7 +100,3 @@ If the database is empty, the system generates:
 
 - **Username**: `admin`
 - **Password**: `admin123`
-
-## Deployment
-
-The project includes a `Dockerfile` and is ready for containerized deployment (Railway/Docker/K8s). It supports `DATABASE_URL` environment variable for simplified connection strings.

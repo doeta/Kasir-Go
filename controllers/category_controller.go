@@ -15,14 +15,19 @@ func GetCategories(c *gin.Context) {
 	c.JSON(http.StatusOK, categories)
 }
 
+type CategoryInput struct {
+	Name string `json:"name" binding:"required"`
+}
+
 // CreateCategory - Hanya admin
 func CreateCategory(c *gin.Context) {
-	var category models.Category
-	if err := c.ShouldBindJSON(&category); err != nil {
+	var input CategoryInput
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+	category := models.Category{Name: input.Name}
 	if err := configs.DB.Create(&category).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -40,11 +45,13 @@ func UpdateCategory(c *gin.Context) {
 		return
 	}
 
-	if err := c.ShouldBindJSON(&category); err != nil {
+	var input CategoryInput
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+	category.Name = input.Name
 	configs.DB.Save(&category)
 	c.JSON(http.StatusOK, category)
 }

@@ -36,6 +36,7 @@ func SetupRouter() *gin.Engine {
 		{
 			// Public Protected (Bisa diakses Admin & Kasir)
 			protected.GET("/products", controllers.GetProducts)
+			protected.GET("/categories", controllers.GetCategories)
 			protected.GET("/payments", controllers.GetPayments)
 			
 			// Transactions (Hanya Kasir yang bisa buat transaksi)
@@ -50,6 +51,11 @@ func SetupRouter() *gin.Engine {
 				admin.POST("/products", controllers.CreateProduct)
 				admin.PUT("/products/:id", controllers.UpdateProduct)
 				admin.DELETE("/products/:id", controllers.DeleteProduct)
+
+				// Category Management
+				admin.POST("/categories", controllers.CreateCategory)
+				admin.PUT("/categories/:id", controllers.UpdateCategory)
+				admin.DELETE("/categories/:id", controllers.DeleteCategory)
 
 				// Payment Management
 				admin.POST("/payments", controllers.CreatePayment)

@@ -10,8 +10,9 @@ import (
 )
 
 type TransactionInput struct {
-	TotalAmount int                        `json:"total_amount"`
-	Details     []models.TransactionDetail `json:"details"`
+	TotalAmount     int                        `json:"total_amount"`
+	PaymentMethodID uint                       `json:"payment_method_id"`
+	Details         []models.TransactionDetail `json:"details"`
 }
 
 func CreateTransaction(c *gin.Context) {
@@ -29,6 +30,7 @@ func CreateTransaction(c *gin.Context) {
 		TotalAmount:     input.TotalAmount,
 		TransactionDate: time.Now(),
 		UserID:          uint(userID.(float64)), // Casting dari JWT Claims
+		PaymentMethodID: input.PaymentMethodID,
 	}
 
 	// Mulai Transaksi Database (Atomic)
@@ -81,6 +83,6 @@ func CreateTransaction(c *gin.Context) {
 
 func GetTransactions(c *gin.Context) {
 	var transactions []models.Transaction
-	configs.DB.Preload("Details").Preload("User").Find(&transactions)
+	configs.DB.Preload("Details").Preload("User").Preload("PaymentMethod").Find(&transactions)
 	c.JSON(http.StatusOK, transactions)
 }

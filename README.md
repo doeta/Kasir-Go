@@ -75,6 +75,13 @@ Kasir-Go is a robust Point of Sale (POS) Backend API built with Go (Golang) and 
 - `PUT /api/products/:id` : Update product. **(Admin Only)**
 - `DELETE /api/products/:id` : Delete product. **(Admin Only)**
 
+#### Categories
+
+- `GET /api/categories` : List all categories.
+- `POST /api/categories` : Add category. **(Admin Only)**
+- `PUT /api/categories/:id` : Update category. **(Admin Only)**
+- `DELETE /api/categories/:id` : Delete category. **(Admin Only)**
+
 #### Payments
 
 - `GET /api/payments` : List payment methods.

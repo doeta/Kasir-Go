@@ -27,7 +27,9 @@ type Category struct {
 type Transaction struct {
 	ID              uint                `gorm:"primaryKey" json:"id"`
 	UserID          uint                `json:"user_id"`
-	User            User                `gorm:"foreignKey:UserID" json:"user"` 
+	User            User                `gorm:"foreignKey:UserID" json:"user"`
+	PaymentMethodID uint                `json:"payment_method_id"`
+	PaymentMethod   PaymentMethod       `gorm:"foreignKey:PaymentMethodID" json:"payment_method"`
 	TotalAmount     int                 `json:"total_amount"`
 	TransactionDate time.Time           `json:"transaction_date"`
 	Details         []TransactionDetail `gorm:"foreignKey:TransactionID" json:"details"`
